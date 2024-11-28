@@ -4,6 +4,7 @@ const currency = "eur";
 
 async function fetchCryptoPrices() {
     try {
+        console.log("Fetching crypto prices..."); // Log pour vérifier
         // Construire l'URL avec les paramètres nécessaires
         const params = new URLSearchParams({
             ids: cryptos.join(","),
@@ -22,8 +23,8 @@ async function fetchCryptoPrices() {
     }
 }
 
+// Appel initial
+fetchCryptoPrices();
+
 // Mettre à jour les cours toutes les 10 secondes
 setInterval(fetchCryptoPrices, 10000);
-
-// Récupérer les cours lors du chargement initial
-fetchCryptoPrices();
