@@ -4,30 +4,37 @@ const currency = "eur";
 
 let countdownValue = 10;
 
-async function fetchCryptoPrice() {
-    try {
-        const response = await fetch('https://coincodex.com/crypto/ripple/', {mode: 'no-cors'});
-        const text = await response.text();
-        const doc = new DOMParser().parseFromString(text, 'text/html');
-        const price = doc.querySelector('.price span').textContent;
-        document.getElementById('ripple').textContent = `XRP : ${price}`;
-    } catch (error) {
-        console.error('Erreur lors du scraping', error);
-        document.getElementById('ripple').textContent = 'XRP : Erreur de chargement';
+async function scrapeCryptoPrice(url, coinId, elementId) {
+  try {
+    // Récupération de la page HTML de la crypto
+    const response = await fetch(url);
+    const htmlText = await response.text();
+    
+    // Création d'un objet DOM à partir du texte HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, 'text/html');
+    
+    // Sélection du prix (exemple pour XRP sur CoinCodex, vous devrez ajuster les sélecteurs CSS)
+    const priceElement = doc.querySelector('.price span'); // Changer le sélecteur en fonction du site
+    if (priceElement) {
+      const price = priceElement.textContent;
+      document.getElementById(elementId).textContent = `${coinId.toUpperCase()} : ${price}`;
+    } else {
+      document.getElementById(elementId).textContent = `${coinId.toUpperCase()} : Prix introuvable`;
     }
+  } catch (error) {
+    console.error('Erreur lors du scraping', error);
+    document.getElementById(elementId).textContent = `${coinId.toUpperCase()} : Erreur de chargement`;
+  }
 }
 
-function updateCountdown() {
-    const countdownElement = document.getElementById("countdown");
-
-    if (countdownValue <= 0) {
-        countdownValue = 10;
-        fetchCryptoPrices();
-    }
-
-    countdownElement.textContent = countdownValue;
-    countdownValue--;
+// Fonction pour mettre à jour toutes les cryptos
+function updatePrices() {
+  scrapeCryptoPrice('https://coincodex.com/crypto/ripple/', 'ripple', 'ripple');
+  scrapeCryptoPrice('https://coincodex.com/crypto/velo/', 'velo', 'velo');
+  scrapeCryptoPrice('https://coincodex.com/crypto/hund/', 'hund', 'hund');
 }
 
-setInterval(fetchCryptoPrice, 10000);
-fetchCryptoPrice();
+// Rafraîchissement toutes les 10 secondes
+setInterval(updatePrices, 10000);
+updatePrices(); // Initialiser la première récupération
