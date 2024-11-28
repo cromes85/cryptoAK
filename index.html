@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cryptos en Direct</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1f1f1f;
-      color: white;
-      text-align: center;
-    }
-    h1 {
-      color: #ff7f0e;
-    }
-    .crypto-price {
-      font-size: 20px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours des Cryptos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Cours des Cryptos en Direct (€)</h1>
-  <div class="crypto-price">
-    <p id="priceXRP">XRP : Chargement...</p>
-    <p id="priceVelo">Velo : Chargement...</p>
-    <p id="priceHund">HUND : Chargement...</p>
-  </div>
-
-  <script src="script.js"></script>
+    <div class="container">
+        <h1>Cours des Cryptos en Direct (€)</h1>
+        <div id="crypto-container">
+            <div class="crypto" id="XRP">XRP : <span class="price">Chargement...</span></div>
+            <div class="crypto" id="VELO">Velo : <span class="price">Chargement...</span></div>
+            <div class="crypto" id="HUND">HUND : <span class="price">Chargement...</span></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
