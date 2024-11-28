@@ -26,5 +26,5 @@ async function fetchCryptoPrices() {
 // Appel initial
 fetchCryptoPrices();
 
-// Mettre à jour les cours toutes les 10 secondes
-setInterval(fetchCryptoPrices, 10000);
+// Mettre à jour les cours toutes les 15 secondes
+setInterval(fetchCryptoPrices, 15000);
