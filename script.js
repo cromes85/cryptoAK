@@ -1,5 +1,5 @@
 const apiUrl = "https://api.coingecko.com/api/v3/simple/price";
-const cryptos = ["ripple", "velo", "hund"]; // Identifiants des cryptos
+const cryptos = ["ripple", "velo", "hund"];
 const currency = "eur";
 
 async function fetchCryptoPrices() {
@@ -22,8 +22,5 @@ async function fetchCryptoPrices() {
     }
 }
 
-// Mettre à jour les cours toutes les 10 secondes
-setInterval(fetchCryptoPrices, 10000);
-
-// Récupérer les cours lors du chargement initial
 fetchCryptoPrices();
+setInterval(fetchCryptoPrices, 10000);
