@@ -4,22 +4,16 @@ const currency = "eur";
 
 let countdownValue = 10;
 
-async function fetchCryptoPrices() {
+async function fetchCryptoPrice() {
     try {
-        console.log("Fetching crypto prices...");
-        const params = new URLSearchParams({
-            ids: cryptos.join(","),
-            vs_currencies: currency,
-        });
-
-        const response = await fetch(`${apiUrl}?${params}`);
-        const data = await response.json();
-
-        document.querySelector("#XRP .price").textContent = `${data.ripple.eur} €`;
-        document.querySelector("#VELO .price").textContent = `${data.velo.eur} €`;
-        document.querySelector("#HUND .price").textContent = `${data.hund?.eur || "Non disponible"} €`;
+        const response = await fetch('https://coincodex.com/crypto/ripple/', {mode: 'no-cors'});
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, 'text/html');
+        const price = doc.querySelector('.price span').textContent;
+        document.getElementById('ripple').textContent = `XRP : ${price}`;
     } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
+        console.error('Erreur lors du scraping', error);
+        document.getElementById('ripple').textContent = 'XRP : Erreur de chargement';
     }
 }
 
@@ -35,5 +29,5 @@ function updateCountdown() {
     countdownValue--;
 }
 
-fetchCryptoPrices(); // Appel initial
-setInterval(updateCountdown, 1000); // Décompte toutes les secondes
+setInterval(fetchCryptoPrice, 10000);
+fetchCryptoPrice();
