@@ -3,19 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto Price Tracker</title>
+  <title>Cryptos en Direct</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: black; color: white; text-align: center; }
-    h1 { color: orange; }
-    p { font-size: 1.2em; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1f1f1f;
+      color: white;
+      text-align: center;
+    }
+    h1 {
+      color: #ff7f0e;
+    }
+    .crypto-price {
+      font-size: 20px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>Cours des Cryptos en Direct (€)</h1>
-  <p id="ripple">XRP : Chargement...</p>
-  <p id="velo">Velo : Chargement...</p>
-  <p id="hund">HUND : Chargement...</p>
+  <div class="crypto-price">
+    <p id="priceXRP">XRP : Chargement...</p>
+    <p id="priceVelo">Velo : Chargement...</p>
+    <p id="priceHund">HUND : Chargement...</p>
+  </div>
 
-  <script src="script.js"></script> <!-- Le code JavaScript de scraping -->
+  <script src="script.js"></script>
 </body>
 </html>
