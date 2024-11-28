@@ -1,22 +1,52 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cours des Cryptos</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>Crypto Price</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        h1 { font-size: 2em; }
+        .price { color: green; font-size: 1.5em; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cours des Cryptos en Direct (€)</h1>
-        <div id="crypto-container">
-            <div class="crypto" id="XRP">XRP : <span class="price">Chargement...</span></div>
-            <div class="crypto" id="VELO">Velo : <span class="price">Chargement...</span></div>
-            <div class="crypto" id="HUND">HUND : <span class="price">Chargement...</span></div>
-        </div>
-    </div>
-    
+    <h1>Prix de XRP</h1>
+    <div id="crypto-price" class="price">Chargement...</div>
 
+    <script>
+        async function fetchCryptoPrice() {
+            const url = 'https://coincodex.com/crypto/ripple/';
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';  // Proxy CORS
+
+            try {
+                // Récupérer la page HTML de CoinCodex via le proxy
+                const response = await fetch(proxyUrl + url);
+                const data = await response.text();
+
+                // Utiliser DOMParser pour analyser le HTML et extraire le prix
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const priceElement = doc.querySelector('.price-primary');
+                
+                if (priceElement) {
+                    // Extraire et afficher le prix
+                    const price = priceElement.textContent.trim();
+                    document.querySelector('#crypto-price').textContent = `XRP : ${price} €`;
+                } else {
+                    document.querySelector('#crypto-price').textContent = 'Prix non disponible';
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération du prix:', error);
+                document.querySelector('#crypto-price').textContent = 'Erreur de récupération';
+            }
+        }
+
+        // Appeler la fonction pour afficher le prix
+        fetchCryptoPrice();
+
+        // Mettre à jour le prix toutes les 10 secondes
+        setInterval(fetchCryptoPrice, 10000);
+    </script>
 </body>
 </html>
