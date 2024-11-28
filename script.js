@@ -14,10 +14,10 @@ async function scrapeCryptoPrice(url, coinId, elementId) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
     
-    // Sélection du prix (exemple pour XRP sur CoinCodex, vous devrez ajuster les sélecteurs CSS)
-    const priceElement = doc.querySelector('.price span'); // Changer le sélecteur en fonction du site
+    // Sélection du prix avec le bon sélecteur CSS
+    const priceElement = doc.querySelector('.coin-price');
     if (priceElement) {
-      const price = priceElement.textContent;
+      const price = priceElement.textContent.trim(); // On enlève les espaces inutiles
       document.getElementById(elementId).textContent = `${coinId.toUpperCase()} : ${price}`;
     } else {
       document.getElementById(elementId).textContent = `${coinId.toUpperCase()} : Prix introuvable`;
@@ -38,3 +38,4 @@ function updatePrices() {
 // Rafraîchissement toutes les 10 secondes
 setInterval(updatePrices, 10000);
 updatePrices(); // Initialiser la première récupération
+
