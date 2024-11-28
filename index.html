@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cours des Cryptos</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Price Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: black; color: white; text-align: center; }
+    h1 { color: orange; }
+    p { font-size: 1.2em; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cours des Cryptos en Direct (€)</h1>
-        <div id="crypto-container">
-            <div class="crypto" id="XRP">XRP : <span class="price">Chargement...</span></div>
-            <div class="crypto" id="VELO">Velo : <span class="price">Chargement...</span></div>
-            <div class="crypto" id="HUND">HUND : <span class="price">Chargement...</span></div>
-        </div>
-    </div>
-    <div id="countdown">10</div>
-    <script src="script.js" defer></script>
-</body>
+  <h1>Cours des Cryptos en Direct (€)</h1>
+  <p id="ripple">XRP : Chargement...</p>
+  <p id="velo">Velo : Chargement...</p>
+  <p id="hund">HUND : Chargement...</p>
 
+  <script src="script.js"></script> <!-- Le code JavaScript de scraping -->
+</body>
 </html>
