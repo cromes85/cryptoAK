@@ -1,11 +1,12 @@
-const apiUrl = "https://api.coingecko.com/api/v3/simple/price";
-const cryptos = ["ripple", "velo", "hund"]; // Identifiants des cryptos
+const apiUrl = "https://cors-anywhere.herokuapp.com/https://api.coingecko.com/api/v3/simple/price";
+const cryptos = ["ripple", "velo", "hund"];
 const currency = "eur";
+
+let countdownValue = 10;
 
 async function fetchCryptoPrices() {
     try {
-        console.log("Fetching crypto prices..."); // Log pour vérifier
-        // Construire l'URL avec les paramètres nécessaires
+        console.log("Fetching crypto prices...");
         const params = new URLSearchParams({
             ids: cryptos.join(","),
             vs_currencies: currency,
@@ -14,7 +15,6 @@ async function fetchCryptoPrices() {
         const response = await fetch(`${apiUrl}?${params}`);
         const data = await response.json();
 
-        // Mettre à jour chaque crypto sur la page
         document.querySelector("#XRP .price").textContent = `${data.ripple.eur} €`;
         document.querySelector("#VELO .price").textContent = `${data.velo.eur} €`;
         document.querySelector("#HUND .price").textContent = `${data.hund?.eur || "Non disponible"} €`;
@@ -23,8 +23,17 @@ async function fetchCryptoPrices() {
     }
 }
 
-// Appel initial
-fetchCryptoPrices();
+function updateCountdown() {
+    const countdownElement = document.getElementById("countdown");
 
-// Mettre à jour les cours toutes les 15 secondes
-setInterval(fetchCryptoPrices, 15000);
+    if (countdownValue <= 0) {
+        countdownValue = 10;
+        fetchCryptoPrices();
+    }
+
+    countdownElement.textContent = countdownValue;
+    countdownValue--;
+}
+
+fetchCryptoPrices(); // Appel initial
+setInterval(updateCountdown, 1000); // Décompte toutes les secondes
